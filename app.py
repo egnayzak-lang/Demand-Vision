@@ -4,8 +4,9 @@ import joblib
 import pandas as pd
 import numpy as np
 
-BASE = Path(__file__).resolve().parent
+BASE = Path(file).resolve().parent
 MODEL_DIR = BASE / "model"
+if not MODEL_DIR.exists(): MODEL_DIR = BASE
 
 app = Flask(__name__)
 
