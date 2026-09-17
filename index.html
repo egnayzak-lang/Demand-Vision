@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DemandVision — AI Demand Intelligence</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="bg-grid"></div><div class="orb orb-a"></div><div class="orb orb-b"></div>
+
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">DV</div><div><b>DemandVision</b><small>AI INTELLIGENCE</small></div></div>
+  <nav>
+    <button class="nav active" data-section="dashboard">⌂ <span>Dashboard</span></button>
+    <button class="nav" data-section="prediction">◈ <span>AI Prediction</span></button>
+    <button class="nav" data-section="analytics">◌ <span>Analytics</span></button>
+    <button class="nav" data-section="dataset">▦ <span>Dataset</span></button>
+  </nav>
+  <div class="side-bottom"><div class="live-dot"></div><span>MODEL ONLINE</span><small>Random Forest • v1.0</small></div>
+</aside>
+
+<main>
+<header class="topbar">
+  <div><span class="eyebrow">DEMAND INTELLIGENCE PLATFORM</span><h1>Predict. Analyze. <span>Decide.</span></h1></div>
+  <div class="system"><i></i><b id="systemText">SYSTEM ONLINE</b><small>API /predict</small></div>
+</header>
+
+<section id="dashboard" class="section active">
+  <div class="hero">
+    <div><div class="eyebrow">REAL-TIME AI FORECASTING</div><h2>Know demand <span>before it happens.</span></h2>
+    <p>DemandVision connects your retail data to a trained Random Forest model and turns predictions into inventory decisions.</p>
+    <button class="primary" onclick="goTo('prediction')">Launch AI Prediction <b>→</b></button></div>
+    <div class="hero-ring"><div class="ring-inner"><strong>99.35%</strong><small>MODEL R²</small></div></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><small>DATASET ROWS</small><strong id="rows">—</strong><em>records</em></div>
+    <div class="stat"><small>PRODUCTS</small><strong id="products">—</strong><em>unique IDs</em></div>
+    <div class="stat"><small>MODEL R²</small><strong>99.35%</strong><em>test score</em></div>
+    <div class="stat"><small>MAE</small><strong>7.56</strong><em>demand units</em></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel"><div class="panel-head"><div><span class="eyebrow">MODEL QUALITY</span><h3>Performance snapshot</h3></div><span class="pill">VALIDATED</span></div>
+      <div class="metric-line"><span>R² Score</span><b>99.35%</b></div><div class="meter"><i style="width:99.35%"></i></div>
+      <div class="metric-line"><span>MAE</span><b>7.56</b></div><div class="meter"><i style="width:92%"></i></div>
+      <div class="metric-line"><span>RMSE</span><b>8.83</b></div><div class="meter"><i style="width:89%"></i></div>
+    </div>
+    <div class="panel"><div class="panel-head"><div><span class="eyebrow">WORKFLOW</span><h3>AI pipeline</h3></div></div>
+      <div class="pipeline"><span>RAW DATA</span><b>→</b><span>DATE FEATURES</span><b>→</b><span>ONE-HOT</span><b>→</b><span>SCALE</span><b>→</b><strong>RF MODEL</strong></div>
+      <p class="muted">Train rules are reused at prediction time so the API receives the same feature structure as the model.</p>
+    </div>
+  </div>
+</section>
+
+<section id="prediction" class="section">
+  <div class="section-title"><div><span class="eyebrow">AI PREDICTION ENGINE</span><h2>Demand Forecast</h2><p>Enter a Product ID from your dataset and let the real model calculate demand.</p></div><span class="pill">LIVE MODEL</span></div>
+  <div class="prediction-layout">
+    <div class="panel input-panel">
+      <label>PRODUCT ID</label>
+      <div class="input-row"><input id="productId" list="productList" value="P0020" placeholder="e.g. P0020"><datalist id="productList"></datalist><button class="primary" id="predictBtn">RUN PREDICTION</button></div>
+      <div id="message" class="message">Ready for prediction.</div>
+      <div class="quick"><button onclick="setProduct('P0020')">P0020</button><button onclick="setProduct('P0001')">P0001</button><button onclick="setProduct('P0010')">P0010</button></div>
+    </div>
+    <div class="result-card" id="resultCard">
+      <div class="result-top"><span class="eyebrow">AI OUTPUT</span><span id="resultStatus" class="pill">WAITING</span></div>
+      <div class="big-number" id="predicted">—</div><small>predicted demand units</small>
+      <div class="result-grid"><div><span>Actual Demand</span><b id="actual">—</b></div><div><span>Inventory</span><b id="inventory">—</b></div><div><span>Units Sold</span><b id="sold">—</b></div><div><span>Price</span><b id="price">—</b></div></div>
+      <div class="recommend" id="recommendation">Run a prediction to receive an inventory recommendation.</div>
+    </div>
+  </div>
+</section>
+
+<section id="analytics" class="section">
+  <div class="section-title"><div><span class="eyebrow">ANALYTICS</span><h2>Demand intelligence</h2><p>Core evaluation metrics from the trained model.</p></div></div>
+  <div class="analytics-grid"><div class="panel"><h3>Error profile</h3><div class="bars"><div><span>MAE</span><i style="height:42%"></i><b>7.56</b></div><div><span>RMSE</span><i style="height:49%"></i><b>8.83</b></div><div><span>R²</span><i style="height:96%"></i><b>0.9935</b></div></div></div>
+  <div class="panel"><h3>Decision logic</h3><div class="decision"><b>Inventory &lt; Predicted Demand</b><span>→ RESTOCK</span></div><div class="decision"><b>Inventory ≥ Predicted Demand</b><span>→ STABLE</span></div></div></div>
+</section>
+
+<section id="dataset" class="section">
+  <div class="section-title"><div><span class="eyebrow">DATASET</span><h2>Retail inventory intelligence</h2><p>Fields used by the DemandVision pipeline.</p></div></div>
+  <div class="chips"><span>Date</span><span>Store ID</span><span>Product ID</span><span>Category</span><span>Region</span><span>Weather Condition</span><span>Seasonality</span><span>Inventory Level</span><span>Units Sold</span><span>Units Ordered</span><span>Demand Forecast</span><span>Price</span><span>Discount</span><span>Holiday/Promotion</span><span>Competitor Pricing</span></div>
+</section>
+
+<footer>DemandVision • AI Demand Intelligence • Built with Flask + scikit-learn</footer>
+</main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
